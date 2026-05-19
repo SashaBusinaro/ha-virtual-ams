@@ -1,6 +1,16 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json           # validates all .json files (manifest, translations, hacs.json)
+      - id: check-yaml           # validates all .yaml/.yml files (workflows, dependabot)
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.10
+    rev: v0.15.7                 # keep in sync with requirements.txt
     hooks:
       - id: ruff
         args: [--fix]
