@@ -1,0 +1,13 @@
+{
+  "domain": "virtual_ams",
+  "name": "Virtual AMS",
+  "codeowners": ["@SashaBusinaro"],
+  "config_flow": true,
+  "dependencies": ["http", "lovelace"],
+  "documentation": "https://github.com/SashaBusinaro/ha-virtual-ams",
+  "integration_type": "hub",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/SashaBusinaro/ha-virtual-ams/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Virtual AMS Setup",
+        "description": "Connect your Bambulab printer sensors. These are provided by the ha-bambulab integration.",
+        "data": {
+          "spool_sensor": "Spool sensor",
+          "print_state_sensor": "Print state sensor",
+          "print_weight_sensor": "Print weight sensor"
+        },
+        "data_description": {
+          "spool_sensor": "Entity that reports the currently loaded spool (name, color, material).",
+          "print_state_sensor": "Entity that reports the print phase (printing / idle).",
+          "print_weight_sensor": "Entity that reports the weight of the last print in grams."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Virtual AMS",
+        "description": "Update the sensor entities used by Virtual AMS.",
+        "data": {
+          "spool_sensor": "Spool sensor",
+          "print_state_sensor": "Print state sensor",
+          "print_weight_sensor": "Print weight sensor"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Virtual AMS is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "active_spool": {
+        "name": "Active Spool"
+      },
+      "inventory": {
+        "name": "Inventory"
+      }
+    }
+  }
+}

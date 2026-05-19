@@ -1,46 +1,136 @@
-# Notice
+# Virtual AMS — Filament Inventory Manager for Bambulab
 
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
+[![Validate][validate-badge]][validate-url]
+[![HACS Custom][hacs-badge]][hacs-url]
+[![Release][release-badge]][release-url]
+[![License: MIT][license-badge]][license-url]
 
-HAVE FUN! 😎
+[validate-badge]: https://github.com/SashaBusinaro/ha-virtual-ams/actions/workflows/validate.yml/badge.svg
+[validate-url]: https://github.com/SashaBusinaro/ha-virtual-ams/actions/workflows/validate.yml
+[hacs-badge]: https://img.shields.io/badge/HACS-Custom-41BDF5?style=for-the-badge&logo=homeassistantcommunitystore&logoColor=white
+[hacs-url]: https://www.hacs.xyz/docs/faq/custom_repositories/
+[release-badge]: https://img.shields.io/github/v/release/SashaBusinaro/ha-virtual-ams?style=for-the-badge&color=blue
+[release-url]: https://github.com/SashaBusinaro/ha-virtual-ams/releases
+[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-url]: https://github.com/SashaBusinaro/ha-virtual-ams/blob/main/LICENSE
 
-## Why?
+A Home Assistant custom integration that provides a virtual AMS (Automated Material System) experience for **Bambulab A1** and similar printers that don't have a physical AMS unit.
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+Virtual AMS tracks your filament spool inventory, automatically deducts filament weight after each successful print, and includes a dedicated Lovelace card for managing your stock from the dashboard.
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+> **Requires** the [ha-bambulab](https://github.com/greghesp/ha-bambulab) integration to be installed and configured first — it provides the printer sensors that Virtual AMS reads.
 
-## What?
+---
 
-This repository contains multiple files, here is a overview:
+## Features
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`custom_components/integration_blueprint/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements.txt` | Python packages used for development/lint/testing this integration. | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+- **Automatic weight deduction** — filament usage is subtracted from the spool's remaining weight after every successful print
+- **Lovelace card** — custom dashboard card included, auto-registered on setup (no manual resource configuration needed)
+- **Full inventory management** — register, update and remove spools via HA services or directly from the card
+- **Active spool tracking** — see at a glance which spool is loaded and how much filament remains
+- **Color mapping** — Bambulab color hex values are resolved to human-friendly color names
 
-## How?
+## Requirements
 
-1. Create a new repository in GitHub, using this repository as a template by clicking the "Use this template" button in the GitHub UI.
-1. Open your new repository in Visual Studio Code devcontainer (Preferably with the "`Dev Containers: Clone Repository in Named Container Volume...`" option).
-1. Rename all instances of the `integration_blueprint` to `custom_components/<your_integration_domain>` (e.g. `custom_components/awesome_integration`).
-1. Rename all instances of the `Integration Blueprint` to `<Your Integration Name>` (e.g. `Awesome Integration`).
-1. Run the `scripts/develop` to start HA and test out your new integration.
+- Home Assistant **2024.11** or newer
+- [ha-bambulab](https://github.com/greghesp/ha-bambulab) integration (provides the printer sensors)
+- [HACS](https://hacs.xyz) (recommended for installation)
 
-## Next steps
+## Installation
 
-These are some next steps you may want to look into:
-- Add tests to your integration, [`pytest-homeassistant-custom-component`](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) can help you get started.
-- Add brand images (logo/icon).
-- Create your first release.
-- Share your integration on the [Home Assistant Forum](https://community.home-assistant.io/).
-- Submit your integration to [HACS](https://hacs.xyz/docs/publish/start).
+### Via HACS (Recommended)
+
+1. Open HACS in your Home Assistant instance
+2. Go to **Integrations**
+3. Click the three-dot menu → **Custom repositories**
+4. Add `https://github.com/SashaBusinaro/ha-virtual-ams` with category **Integration**
+5. Find **Virtual AMS** and click **Download**
+6. Restart Home Assistant
+
+### Manual
+
+1. Download the latest release from the [releases page](https://github.com/SashaBusinaro/ha-virtual-ams/releases)
+2. Copy the `custom_components/virtual_ams` folder into your HA `config/custom_components/` directory
+3. Restart Home Assistant
+
+## Setup
+
+1. Go to **Settings → Devices & Services → Add Integration** and search for **Virtual AMS**
+2. Select the three sensors provided by ha-bambulab for your printer:
+
+   | Field | Example (A1) | Description |
+   |---|---|---|
+   | **Spool sensor** | `sensor.a1_external_spool` | Reports the loaded filament (name, color, material) |
+   | **Print state sensor** | `sensor.a1_current_stage` | Reports the current print phase (`printing` / `idle`) |
+   | **Print weight sensor** | `sensor.a1_print_weight` | Reports filament used in grams for the last print |
+
+3. Click **Submit**. The Lovelace card is registered automatically.
+
+To change sensors later, go to the integration page and click **Reconfigure**.
+
+### Lovelace Card
+
+The card is auto-registered on setup. To add it to a dashboard:
+
+1. Edit your dashboard → **Add card**
+2. Search for **Virtual AMS**
+3. Select your Virtual AMS device from the picker
+
+The card lets you view the active spool, register or update a spool, and manage your inventory — all without leaving the dashboard.
+
+## Services
+
+### `virtual_ams.register_spool`
+
+Registers a new spool or overwrites an existing one. If `name` and `color_hex` are omitted, they are auto-detected from the spool currently loaded on the printer.
+
+| Field | Required | Default | Description |
+|---|---|---|---|
+| `fingerprint` | No | auto | Spool identifier (`name_#COLORHEX`). Auto-detected if omitted. |
+| `name` | No | auto | Raw spool name (e.g. `Bambu PLA Basic`). |
+| `color_hex` | No | auto | Color in `#RRGGBBAA` format. |
+| `material` | No | | Filament material (e.g. `PLA`, `PETG`). |
+| `weight` | No | `1000` | Current weight in grams. |
+| `initial_weight` | No | = `weight` | Full spool weight in grams. |
+| `friendly_name` | No | auto | Custom display name. |
+
+### `virtual_ams.update_spool`
+
+Updates an existing spool's weight, material or display name. If `fingerprint` is omitted, the currently loaded spool is used.
+
+| Field | Required | Description |
+|---|---|---|
+| `fingerprint` | No | Defaults to the currently loaded spool. |
+| `weight` | No | New current weight in grams. |
+| `initial_weight` | No | New full spool weight in grams. |
+| `material` | No | Updated material. |
+| `friendly_name` | No | Updated display name. |
+
+### `virtual_ams.remove_spool`
+
+Removes a spool from the inventory.
+
+| Field | Required | Description |
+|---|---|---|
+| `fingerprint` | Yes | Spool identifier to remove (e.g. `Bambu PLA Basic_#FFFFFFFF`). |
+
+## Entities
+
+| Entity | State | Key Attributes |
+|---|---|---|
+| `sensor.virtual_ams_active_spool` | Display name of the loaded spool | `fingerprint`, `name`, `color_hex`, `material`, `weight`, `initial_weight`, `in_inventory` |
+| `sensor.virtual_ams_inventory` | Count of spools in inventory | `spools` — full inventory dict keyed by fingerprint |
+
+## How Fingerprints Work
+
+Each spool is identified by a **fingerprint** in the format `{name}_{#COLORHEX}`, for example `Bambu PLA Basic_#FFFFFFFF`. This is derived automatically from the spool sensor's `name` and `color` attributes.
+
+**Known limitation**: two physical spools of the same manufacturer, material, and color share the same fingerprint and cannot be tracked separately.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

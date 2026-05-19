@@ -1,0 +1,108 @@
+register_spool:
+  name: Register Spool
+  description: >
+    Registers or updates a spool in the inventory. If name and color_hex are
+    omitted, they are auto-detected from the spool currently loaded on the printer.
+  fields:
+    fingerprint:
+      name: Fingerprint
+      description: Spool identifier (name_#COLORHEX). Auto-detected if omitted.
+      example: "Bambu PLA Basic_#FFFFFFFF"
+      selector:
+        text:
+    name:
+      name: Name
+      description: Raw spool name (e.g. "Bambu PLA Basic"). Auto-detected if omitted.
+      example: "Bambu PLA Basic"
+      selector:
+        text:
+    color_hex:
+      name: Color Hex
+      description: Color in RRGGBBAA hex format (e.g. FFFFFFFF). Auto-detected if omitted.
+      example: "FFFFFFFF"
+      selector:
+        text:
+    material:
+      name: Material
+      description: Filament material (e.g. PLA, PETG, ABS).
+      example: "PLA"
+      selector:
+        text:
+    weight:
+      name: Weight (g)
+      description: Current spool weight in grams.
+      default: 1000
+      selector:
+        number:
+          min: 0
+          max: 9999
+          step: 1
+          unit_of_measurement: g
+    initial_weight:
+      name: Initial Weight (g)
+      description: Full spool weight in grams. Defaults to weight if not specified.
+      selector:
+        number:
+          min: 0
+          max: 9999
+          step: 1
+          unit_of_measurement: g
+    friendly_name:
+      name: Display Name
+      description: Custom display name. Auto-generated from name + color if omitted.
+      example: "My white PLA"
+      selector:
+        text:
+
+update_spool:
+  name: Update Spool
+  description: >
+    Updates weight, material or display name of an existing spool.
+    Fingerprint defaults to the currently loaded spool if omitted.
+  fields:
+    fingerprint:
+      name: Fingerprint
+      description: Spool identifier (name_#COLORHEX). Defaults to current spool.
+      example: "Bambu PLA Basic_#FFFFFFFF"
+      selector:
+        text:
+    weight:
+      name: Weight (g)
+      description: New current weight in grams.
+      selector:
+        number:
+          min: 0
+          max: 9999
+          step: 1
+          unit_of_measurement: g
+    initial_weight:
+      name: Initial Weight (g)
+      description: New full spool weight in grams.
+      selector:
+        number:
+          min: 0
+          max: 9999
+          step: 1
+          unit_of_measurement: g
+    material:
+      name: Material
+      description: Updated filament material.
+      selector:
+        text:
+    friendly_name:
+      name: Display Name
+      description: Updated display name.
+      selector:
+        text:
+
+remove_spool:
+  name: Remove Spool
+  description: Removes a spool from the inventory.
+  fields:
+    fingerprint:
+      name: Fingerprint
+      description: Spool identifier to remove (name_#COLORHEX).
+      required: true
+      example: "Bambu PLA Basic_#FFFFFFFF"
+      selector:
+        text:

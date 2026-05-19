@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configurazione Virtual AMS",
+        "description": "Collega i sensori della tua stampante Bambulab. Questi sono forniti dall'integrazione ha-bambulab.",
+        "data": {
+          "spool_sensor": "Sensore bobina",
+          "print_state_sensor": "Sensore fase di stampa",
+          "print_weight_sensor": "Sensore peso di stampa"
+        },
+        "data_description": {
+          "spool_sensor": "Entità che riporta la bobina caricata (nome, colore, materiale).",
+          "print_state_sensor": "Entità che riporta la fase di stampa (printing / idle).",
+          "print_weight_sensor": "Entità che riporta il peso dell'ultima stampa in grammi."
+        }
+      },
+      "reconfigure": {
+        "title": "Riconfigura Virtual AMS",
+        "description": "Aggiorna le entità sensore utilizzate da Virtual AMS.",
+        "data": {
+          "spool_sensor": "Sensore bobina",
+          "print_state_sensor": "Sensore fase di stampa",
+          "print_weight_sensor": "Sensore peso di stampa"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Virtual AMS è già configurato."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "active_spool": {
+        "name": "Bobina Attiva"
+      },
+      "inventory": {
+        "name": "Inventario"
+      }
+    }
+  }
+}

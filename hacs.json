@@ -1,5 +1,5 @@
 {
-    "name": "Integration blueprint",
-    "homeassistant": "2026.3.2",
+    "name": "Virtual AMS",
+    "homeassistant": "2024.11.0",
     "hacs": "2.0.5"
 }
