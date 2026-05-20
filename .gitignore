@@ -1,4 +1,5 @@
 # artifacts
+venv/
 __pycache__
 .pytest*
 *.egg-info
@@ -8,7 +9,10 @@ __pycache__
 
 # misc
 .coverage
-.vscode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 coverage.xml
 .ruff_cache
 

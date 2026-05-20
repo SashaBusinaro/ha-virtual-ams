@@ -3,15 +3,15 @@
 [![Validate][validate-badge]][validate-url]
 [![HACS Custom][hacs-badge]][hacs-url]
 [![Release][release-badge]][release-url]
-[![License: MIT][license-badge]][license-url]
+[![License][license-badge]][license-url]
 
-[validate-badge]: https://github.com/SashaBusinaro/ha-virtual-ams/actions/workflows/validate.yml/badge.svg
+[validate-badge]: https://img.shields.io/github/actions/workflow/status/SashaBusinaro/ha-virtual-ams/validate.yml?style=for-the-badge&label=Validate
 [validate-url]: https://github.com/SashaBusinaro/ha-virtual-ams/actions/workflows/validate.yml
 [hacs-badge]: https://img.shields.io/badge/HACS-Custom-41BDF5?style=for-the-badge&logo=homeassistantcommunitystore&logoColor=white
 [hacs-url]: https://www.hacs.xyz/docs/faq/custom_repositories/
 [release-badge]: https://img.shields.io/github/v/release/SashaBusinaro/ha-virtual-ams?style=for-the-badge&color=blue
 [release-url]: https://github.com/SashaBusinaro/ha-virtual-ams/releases
-[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-badge]: https://img.shields.io/github/license/SashaBusinaro/ha-virtual-ams?style=for-the-badge
 [license-url]: https://github.com/SashaBusinaro/ha-virtual-ams/blob/main/LICENSE
 
 A Home Assistant custom integration that provides a virtual AMS (Automated Material System) experience for **Bambulab A1** and similar printers that don't have a physical AMS unit.

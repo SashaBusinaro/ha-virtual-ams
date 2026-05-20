@@ -4,6 +4,13 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+if [ ! -d "venv" ] || ! venv/bin/python --version &>/dev/null; then
+    scripts/setup
+fi
+
+# shellcheck source=/dev/null
+source venv/bin/activate
+
 # Create config dir if not present
 if [[ ! -d "${PWD}/config" ]]; then
     mkdir -p "${PWD}/config"
@@ -11,7 +18,7 @@ if [[ ! -d "${PWD}/config" ]]; then
 fi
 
 # Set the path to custom_components
-## This let's us have the structure we want <root>/custom_components/integration_blueprint
+## This let's us have the structure we want <root>/custom_components/virtual_ams
 ## while at the same time have Home Assistant configuration inside <root>/config
 ## without resulting to symlinks.
 export PYTHONPATH="${PYTHONPATH}:${PWD}/custom_components"

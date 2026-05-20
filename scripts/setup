@@ -4,4 +4,15 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-python3 -m pip install --requirement requirements.txt
+if [ -d "venv" ] && ! venv/bin/python --version &>/dev/null; then
+    echo "Recreating venv (platform mismatch detected)..."
+    rm -rf venv
+fi
+
+if [ ! -d "venv" ]; then
+    python3 -m venv venv
+fi
+
+venv/bin/pip install --requirement requirements.txt
+venv/bin/pip install pre-commit
+venv/bin/pre-commit install

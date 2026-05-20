@@ -4,5 +4,11 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-ruff format .
-ruff check . --fix
+if [ ! -d "venv" ] || ! venv/bin/python --version &>/dev/null; then
+    scripts/setup
+fi
+
+# shellcheck source=/dev/null
+source venv/bin/activate
+
+pre-commit run --all-files
