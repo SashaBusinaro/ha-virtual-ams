@@ -32,7 +32,7 @@ Virtual AMS tracks your filament spool inventory, automatically deducts filament
 
 ## Requirements
 
-- Home Assistant **2024.11** or newer
+- Home Assistant **2026.4** or newer
 - [ha-bambulab](https://github.com/greghesp/ha-bambulab) integration (provides the printer sensors)
 - [HACS](https://hacs.xyz) (recommended for installation)
 
