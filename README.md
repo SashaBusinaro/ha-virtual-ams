@@ -36,27 +36,50 @@ Virtual AMS tracks your filament spool inventory, automatically deducts filament
 - [ha-bambulab](https://github.com/greghesp/ha-bambulab) integration (provides the printer sensors)
 - [HACS](https://hacs.xyz) (recommended for installation)
 
+---
+
 ## Installation
 
-### Via HACS (Recommended)
+### Step 1: Install the Integration
 
-1. Open HACS in your Home Assistant instance
-2. Go to **Integrations**
-3. Click the three-dot menu → **Custom repositories**
-4. Add `https://github.com/SashaBusinaro/ha-virtual-ams` with category **Integration**
-5. Find **Virtual AMS** and click **Download**
-6. Restart Home Assistant
+**Prerequisites:** This integration requires [HACS](https://hacs.xyz/) (Home Assistant Community Store) to be installed.
 
-### Manual
+Click the button below to open the integration directly in HACS:
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=SashaBusinaro&repository=ha-virtual-ams&category=integration)
+
+Then:
+
+1. Click "Download" to install the integration
+2. **Restart Home Assistant** (required after installation)
+
+> [!NOTE]
+> The My Home Assistant redirect will first take you to a landing page. Click the button there to open your Home Assistant instance.
+
+<details>
+<summary><strong>Manual Installation (Advanced)</strong></summary>
+
+If you prefer not to use HACS:
 
 1. Download the latest release from the [releases page](https://github.com/SashaBusinaro/ha-virtual-ams/releases)
-2. Copy the `custom_components/virtual_ams` folder into your HA `config/custom_components/` directory
+2. Copy the `custom_components/virtual_ams/` folder into your Home Assistant's `config/custom_components/` directory
 3. Restart Home Assistant
 
-## Setup
+</details>
 
-1. Go to **Settings → Devices & Services → Add Integration** and search for **Virtual AMS**
-2. Select the three sensors provided by ha-bambulab for your printer:
+### Step 2: Configure the Integration
+
+**Important:** Complete Step 1 and restart Home Assistant before proceeding.
+
+#### Option 1: One-Click Setup
+
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=virtual_ams)
+
+#### Option 2: Manual Setup
+
+1. Go to **Settings → Devices & Services**
+2. Click **"+ Add Integration"** and search for **Virtual AMS**
+3. Select the three sensors provided by ha-bambulab for your printer:
 
    | Field | Example (A1) | Description |
    |---|---|---|
@@ -64,7 +87,7 @@ Virtual AMS tracks your filament spool inventory, automatically deducts filament
    | **Print state sensor** | `sensor.a1_current_stage` | Reports the current print phase (`printing` / `idle`) |
    | **Print weight sensor** | `sensor.a1_print_weight` | Reports filament used in grams for the last print |
 
-3. Click **Submit**. The Lovelace card is registered automatically.
+4. Click **Submit**. The Lovelace card is registered automatically.
 
 To change sensors later, go to the integration page and click **Reconfigure**.
 
@@ -77,6 +100,8 @@ The card is auto-registered on setup. To add it to a dashboard:
 3. Select your Virtual AMS device from the picker
 
 The card lets you view the active spool, register or update a spool, and manage your inventory — all without leaving the dashboard.
+
+---
 
 ## Services
 
@@ -114,6 +139,8 @@ Removes a spool from the inventory.
 |---|---|---|
 | `fingerprint` | Yes | Spool identifier to remove (e.g. `Bambu PLA Basic_#FFFFFFFF`). |
 
+---
+
 ## Entities
 
 | Entity | State | Key Attributes |
@@ -121,11 +148,15 @@ Removes a spool from the inventory.
 | `sensor.virtual_ams_active_spool` | Display name of the loaded spool | `fingerprint`, `name`, `color_hex`, `material`, `weight`, `initial_weight`, `in_inventory` |
 | `sensor.virtual_ams_inventory` | Count of spools in inventory | `spools` — full inventory dict keyed by fingerprint |
 
+---
+
 ## How Fingerprints Work
 
 Each spool is identified by a **fingerprint** in the format `{name}_{#COLORHEX}`, for example `Bambu PLA Basic_#FFFFFFFF`. This is derived automatically from the spool sensor's `name` and `color` attributes.
 
 **Known limitation**: two physical spools of the same manufacturer, material, and color share the same fingerprint and cannot be tracked separately.
+
+---
 
 ## Contributing
 

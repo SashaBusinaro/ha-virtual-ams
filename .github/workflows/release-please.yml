@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   release-please:
+    # Skip on the template repo itself; flag flips to false on "Use this template" instantiations.
+    if: github.event.repository.is_template != true
     name: Release Please
     runs-on: ubuntu-latest
     steps:
